@@ -9,15 +9,12 @@ const mkdirWomanYoung = path.join(__dirname, 'users', 'womanYounger20');
 fs.mkdir(mkdirManOld, {recursive: true}, (e) => {
     console.log(e);
 });
-
 fs.mkdir(mkdirManYoung, {recursive: true}, (e) => {
     console.log(e);
 });
-
 fs.mkdir(mkdirWomanOld, {recursive: true}, (e) => {
     console.log(e);
 });
-
 fs.mkdir(mkdirWomanYoung, {recursive: true}, (e) => {
     console.log(e);
 });
@@ -34,28 +31,35 @@ const users = [
 ];
 
 users.forEach(item => {
-    if (item.gender === 'female' && item.age < 20) {
-        fs.writeFile(path.join(mkdirWomanYoung, `${item.name}.json`), JSON.stringify(item), (err) => {
-            if (err) {
-                console.log(err);
+    if(item.gender === 'male' && item.age > 20) {
+        fs.writeFile(path.join(mkdirManOld, `${item.name}.json`), JSON.stringify(item), (err) => {
+            if(err){
+                console.log(err)
             }
         })
         return;
     }
 
-    if (item.gender === 'female' && item.age >= 20) {
-        fs.writeFile(path.join(mkdirWomanOld, `${item.name}.json`), JSON.stringify(item), (err) => {
-            if (err) throw err;
-        })
-        return;
-    }
-
-    if(item.gender === 'male' && item.age > 20) {
-        fs.writeFile(path.join(mkdirManOld, `${item.name}.json`), JSON.stringify(item), (err) => {
+    if(item.gender === 'male' && item.age < 20) {
+        fs.writeFile(path.join(mkdirManYoung, `${item.name}.json`), JSON.stringify(item), (err) => {
             if(err) throw err;
         })
         return;
     }
 
-    console.log(item);
+    if(item.gender === 'female' && item.age > 20) {
+        fs.writeFile(path.join(mkdirWomanOld, `${item.name}.json`), JSON.stringify(item), (err) => {
+            if(err) throw err;
+        })
+        return;
+    }
+
+    if(item.gender === 'female' && item.age < 20) {
+        fs.writeFile(path.join(mkdirWomanYoung, `${item.name}.json`), JSON.stringify(item), (err) => {
+            if(err) throw err;
+        })
+        return;
+    }
+
+    console.log(item)
 })
