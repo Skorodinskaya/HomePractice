@@ -1,23 +1,27 @@
 const fs = require('fs');
-const path = require('path');
+const path = require ('path');
 
 const mkdirManOld = path.join(__dirname, 'users', 'manOlder20');
 const mkdirManYoung = path.join(__dirname, 'users', 'manYounger20');
 const mkdirWomanOld = path.join(__dirname, 'users', 'womanOlder20');
 const mkdirWomanYoung = path.join(__dirname, 'users', 'womanYounger20');
 
-fs.mkdir(mkdirManOld, {recursive: true}, (e) => {
+fs.mkdir(mkdirManOld, {recursive:true}, (e) => {
     console.log(e);
 });
-fs.mkdir(mkdirManYoung, {recursive: true}, (e) => {
+
+fs.mkdir(mkdirManYoung, {recursive:true}, (e) => {
     console.log(e);
 });
-fs.mkdir(mkdirWomanOld, {recursive: true}, (e) => {
+
+fs.mkdir(mkdirWomanOld, {recursive:true}, (e) => {
     console.log(e);
 });
-fs.mkdir(mkdirWomanYoung, {recursive: true}, (e) => {
+
+fs.mkdir(mkdirWomanYoung, {recursive:true}, (e) => {
     console.log(e);
 });
+
 
 const users = [
     {name: 'olya', gender: 'female', age: 14},
@@ -33,33 +37,35 @@ const users = [
 users.forEach(item => {
     if(item.gender === 'male' && item.age > 20) {
         fs.writeFile(path.join(mkdirManOld, `${item.name}.json`), JSON.stringify(item), (err) => {
-            if(err){
-                console.log(err)
+            if(err) {
+                console.log(err);
             }
-        })
+        });
         return;
     }
 
     if(item.gender === 'male' && item.age < 20) {
         fs.writeFile(path.join(mkdirManYoung, `${item.name}.json`), JSON.stringify(item), (err) => {
             if(err) throw err;
-        })
+        });
         return;
     }
 
     if(item.gender === 'female' && item.age > 20) {
         fs.writeFile(path.join(mkdirWomanOld, `${item.name}.json`), JSON.stringify(item), (err) => {
-            if(err) throw err;
-        })
+            if (err) throw err;
+        });
         return;
     }
 
     if(item.gender === 'female' && item.age < 20) {
         fs.writeFile(path.join(mkdirWomanYoung, `${item.name}.json`), JSON.stringify(item), (err) => {
             if(err) throw err;
-        })
+        });
         return;
     }
-
-    console.log(item)
+    console.log(item);
 })
+
+
+
