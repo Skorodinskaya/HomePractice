@@ -1,34 +1,33 @@
-const fs = require ('fs');
-const path = require('path');
+const fs = require('fs');
+const path = require ('path');
 
 const mkdirBoys = path.join(__dirname, 'users', 'boys');
 const mkdirGirls = path.join(__dirname, 'users', 'girls');
 
-fs.mkdir(mkdirBoys, {recursive: true}, err => {
-    console.log(err);
+fs.mkdir(mkdirBoys, {recursive: true}, (e) => {
+    console.log(e);
 });
 
-fs.mkdir(mkdirGirls, {recursive: true}, err => {
-    console.log(err);
+fs.mkdir(mkdirGirls, {recursive: true}, (e) => {
+    console.log(e);
 });
 
-const sorter = (currentFolder, gender, futureFolder) => {
-    fs.readdir(currentFolder, (err, data) => {
+const sorter = (current, gender, future) => {
+    fs.readdir(current, (err, data) => {
         if(err){
             console.log(err);
             return;
         }
 
         data.forEach(value => {
-            fs.readFile(path.join(currentFolder, value), (err, data)=> {
+            fs.readFile(path.join(current, value), (err, data) => {
                 if(err) {
                     console.log(err);
                     return;
                 }
-
                 const item = JSON.parse(data);
                 if(item.gender === gender){
-                    fs.rename(path.join(currentFolder, value), path.join(futureFolder, value), (err) => {
+                    fs.rename(path.join(current, value), path.join(future, value), (err) => {
                         if(err){
                             console.log(err);
                         }
@@ -40,4 +39,4 @@ const sorter = (currentFolder, gender, futureFolder) => {
 }
 
 sorter(mkdirBoys, 'female', mkdirGirls);
-sorter(mkdirGirls, 'male', mkdirBoys);
+sorter(mkdirGirls, 'boys', mkdirBoys);
